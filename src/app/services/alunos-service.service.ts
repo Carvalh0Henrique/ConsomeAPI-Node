@@ -18,6 +18,8 @@ export class AlunosServiceService {
   private http = inject(HttpClient);
   private base = 'http://localhost:3000/alunos';
 
+  constructor() { }
+
   listar(): Observable<Aluno[]> {
     return this.http.get<Aluno[]>(this.base);
   }
@@ -30,5 +32,12 @@ export class AlunosServiceService {
     console.log(aluno);
     return this.http.post<Aluno>(this.base, aluno);
   }
-  constructor() { }
+
+  atualizar(id: String, aluno: Partial<Aluno>): Observable<Aluno> {
+    return this.http.patch<Aluno>(`${this.base}/${id}`, aluno);
+  }
+
+  excluir(id: String) {
+    return this.http.delete(`${this.base}/${id}`);
+  }
 }
